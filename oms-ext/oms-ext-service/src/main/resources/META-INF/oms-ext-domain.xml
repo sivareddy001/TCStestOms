@@ -4,6 +4,8 @@
 
 	<!--Comment Added by sam -->
 	<!--Comment Added by sam -->
+	
+	<!--Comment Added by sam (Master) -->
 	<managedobjects>
 	<managedobject code="DummyObjectData" properties="true">
 			<persistence name="DummyObjectData" />
