@@ -3,9 +3,12 @@
 	package="com.hybris.oms.domain">
 
 	<!--Comment Added by sam -->
-	<!--Comment Added by sam -->
-	
+
+	<!--First Comment By siva  -->
 	<!--Comment Added by sam (Master) -->
+
+
+
 	<managedobjects>
 	<managedobject code="DummyObjectData" properties="true">
 			<persistence name="DummyObjectData" />
