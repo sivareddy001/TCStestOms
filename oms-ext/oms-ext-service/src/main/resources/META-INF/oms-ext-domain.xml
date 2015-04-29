@@ -2,10 +2,14 @@
 	xsi:schemaLocation="http://www.hybris.com/schema/onpremise/domain http://www.hybris.com/schema/onpremise/domain-5.3.xsd" 
 	package="com.hybris.oms.domain">
 
+<<<<<<< HEAD
 	<!--Comment Added by sam -->
 <!--First Comment By siva  -->
 <!--Second Comment By siva  -->
 <!--third Comment By siva  -->
+=======
+
+>>>>>>> b06d61502ec93cf4c7058b8b9698d2fbc28d4d1a
 	<managedobjects>
 	<managedobject code="DummyObjectData" properties="true">
 			<persistence name="DummyObjectData" />
