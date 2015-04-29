@@ -1,0 +1,616 @@
+<types xmlns="http://www.hybris.com/schema/ondemand/domain" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.hybris.com/schema/onpremise/domain http://www.hybris.com/schema/onpremise/domain-5.3.xsd" 
+	package="com.hybris.oms.domain">
+
+	<managedobjects>
+	<managedobject code="DummyObjectData" properties="true">
+			<persistence name="DummyObjectData" />
+			<attributes>
+				<attribute name="name" type="String">
+					<modifiers mandatory="true" unique="true" />
+				</attribute>
+				<attribute name="dummyProperty" type="String">
+				</attribute>
+			</attributes>
+			<pk>
+				<attribute name="name" />
+			</pk>
+		</managedobject>
+		
+		<!-- Order Model -->
+		<managedobject code="OrderData" mixin="true">
+		    <attributes>
+		        <attribute name="dummy" type="String" />
+		   
+		        <attribute name="orderType" type="String" >
+                <description>Order Type</description>
+                <modifiers indexed="true" tracked="true"/>
+                </attribute>
+		   	   
+		        <attribute name="submissionDate" type="Date" >
+		        <description>Submission Date</description>
+                <modifiers indexed="true" tracked="true"/>
+                </attribute>
+		    		    	   
+		        <attribute name="channel" type="String" >
+		        <description>channel</description>
+                <modifiers indexed="true"/>
+                </attribute>
+		  		   
+		        <attribute name="orderDate" type="Date" >
+		        <description>Order Date</description>
+                <modifiers indexed="true" tracked="true"/>
+                </attribute>
+                	    	   
+		        <attribute name="middleName" type="String" >
+		        <description>MiddleName</description>
+                <modifiers indexed="true"/>
+                </attribute>
+                	    	   
+		        <attribute name="addressType" type="String" >
+		        <description>Address Type</description>
+                <modifiers indexed="true"/>
+                </attribute>
+                	</attributes>    	   
+		</managedobject>
+	
+		
+		
+		<!-- Extended to have additional fields for the stockroom locations -->
+		
+		<managedobject code="StockroomLocationData" mixin="true">
+			<description>Extended to have additional fields for the stockroom locations</description>
+			
+			<attributes>
+				<attribute name="sellerID" type="String" >
+					<description>Seller id</description>
+					<modifiers indexed="true" final="true" />
+				</attribute>
+				<attribute name="storeContactNo" type="String">
+					<description>Store ContactNo</description>
+				</attribute>
+				<attribute name="communicationPhoneNo" type="String">
+					<description>Store Communication PhoneNo</description>
+				</attribute>
+				
+				<attribute name="deliveryStoreID" type="String">
+					<description>Delivery Store ID</description>
+				</attribute>
+				<attribute name="email" type="String">
+					<description>Store name</description>
+				</attribute>
+				<attribute name="slaveType" type="String">
+					<description>Store name</description>
+				</attribute>
+				
+				<attribute name="openingTime" type="Date">
+					<description>Opening time of the Store </description>
+				</attribute>
+				<attribute name="closingTime" type="Date">
+					<description>Closing time of the Store</description>
+				</attribute>
+				<attribute name="clickNcollect" type="String">
+					<description>Is click n collect is available or not</description>
+				</attribute>
+				
+			</attributes>
+		</managedobject>
+		
+
+		<managedobject code="ItemLocationData" mixin="true">
+			<description>Abstract class for inventory</description>
+			
+			<versionattribute name="version" />
+			<attributes>
+				<attribute name="sellerID" type="String" >
+					<description>Seller id</description>
+					<modifiers indexed="true"  final="true" />
+				</attribute>
+				<attribute name="ussID" type="String" >
+					<description>ussID </description>
+					<modifiers indexed="true"  final="true" />
+				</attribute>
+				
+			  <!--   <attribute name="orderLines" type="List(OrderLineData)">
+					<constraints>
+						<constraint package="org.apache.bval.constraints" type="NotEmpty"/>
+					</constraints>
+					<description>Order line containing item and order line quantities</description>
+					<relation>
+						<one2many mappedBy="myOrder"/>
+					</relation>
+				</attribute> -->
+	        </attributes>
+		</managedobject>
+		
+		<managedobject code="ItemQuantityData" mixin="true">
+			<description>Abstract class for inventory</description>
+		<attributes>
+				<attribute name="reservedQuantity" type="String">
+					<description>For reserved quantity </description>
+				</attribute>
+				</attributes>
+		 </managedobject>
+		 
+		 
+		<managedobject code="OrderLineData" mixin="true">
+			<description>Contains data on each order line</description>
+			
+			<attributes>
+				<attribute name="ussID" type="String">
+					<description>SellerID plus ProductSkuID</description>
+					<modifiers indexed="true" final="true"/>
+				</attribute>
+				
+				<attribute name="sellerID" type="String">
+					<description>SellerID</description>
+					<modifiers indexed="true" final="true"/>
+				</attribute>
+				
+				<attribute name="orderNo" type="String">
+					<description>Seller OrderID </description>
+					<modifiers indexed="true" final="true"/>
+				</attribute>
+				
+				<attribute name="channel" type="String">
+					<description>Contains channel name(MOBILE,DESKTOP,TAB)</description>
+					<modifiers indexed="true" final="true"/>
+				</attribute>
+				
+				<attribute name="apportionedPrice" type="double">
+					<modifiers mandatory="false" />
+					<description>Order line item apportioned price value</description>
+				</attribute>
+				
+				<attribute name="apportionedCodPrice" type="double">
+					<modifiers mandatory="false" />
+					<description>Order line item apportioned COD price value</description>
+				</attribute>
+				
+				<attribute name="canBeReallocated" type="boolean">
+					<description>canBeReallocated </description>
+				</attribute>
+				
+				<attribute name="productType" type="String">
+					<description>Product Type</description>
+					<modifiers indexed="true"/>
+				</attribute>
+				
+				<attribute name="cod" type="boolean">
+					<description>COD Eligible or not </description>
+				</attribute>
+				
+				<attribute name="awbNumber" type="String">
+					<description>AWB No</description>
+				</attribute>
+				
+				<attribute name="awbTrackingUrl" type="String">
+					<description>AWB Tracking Url</description>
+				</attribute>
+				
+				<attribute name="transportMode" type="String">
+					<description>TransportMode </description>
+					<modifiers indexed="true"/>
+				</attribute>
+				
+				<attribute name="invoiceNo" type="String">
+					<description>Invoice No</description>
+				</attribute>
+				
+				<attribute name="shipmentStatus" type="String">
+					<description>Shipment Status</description>
+				</attribute>
+				
+				<attribute name="promotions" type="String">
+					<description>Promotions in OrderLine </description>
+				</attribute>
+				
+				<attribute name="freebie" type="boolean">
+					<description>Promotional product for free</description>
+				</attribute>
+				
+				<attribute name="gift" type="boolean">
+					<description>Promotional product for free</description>
+				</attribute>
+				
+				<attribute name="parentUssID" type="String">
+					<description>parent UssID</description>
+				</attribute>
+				
+				<attribute name="primaryLogisticsID" type="String">
+					<description>Primary LogisticsID </description>
+				</attribute>
+				
+				<attribute name="secondaryLogisticsID" type="String">
+					<description>Secondary LogisticsID </description>
+				</attribute>
+				
+				<attribute name="primarySalveID" type="String">
+					<description>Primary Salve ID </description>
+				</attribute>
+				
+				<attribute name="secondarySalveID" type="String">
+					<description>Secondary Salve ID </description>
+				</attribute>
+				
+				<attribute name="shippingCharge" type="double">
+					<description>Shipping Charge </description>
+				</attribute>
+				
+				<attribute name="itemLocationID" type="ItemLocationData">
+					<description>ItemLocation ID </description>
+				</attribute>
+				
+				<!-- <attribute name="itemLocations" type="List(OrderLineData)">
+					<description>Order line Data Details</description>
+					<relation>
+						<one2many mappedBy="orderLine"/>
+					</relation>
+				</attribute> -->
+				
+				
+				<attribute name="orderRefNo" type="String">
+				<description>Order Number </description>
+				</attribute>
+								
+				<attribute name="remarks" type="String">
+					<description>Remarks for the OrderLine </description>
+				</attribute>
+				
+				<attribute name="rejectionReasonCode" type="String">
+				<description>Rejection ReasonCode </description>
+				</attribute>
+				
+				<attribute name="serialNumber" type="String">
+				<description>Serial Number</description>
+				</attribute>
+				
+				<attribute name="deliveryDate" type="Date">
+				<description>Delivery Date of a orderline</description>
+				</attribute>
+				
+				<attribute name="receivedBy" type="String">
+				<description>Order Line Receiver Name</description>
+				</attribute>
+				
+			</attributes>
+		</managedobject>
+		 
+		 <!-- Contains data on each order line quantity -->
+		 <managedobject code="OrderLineQuantityData" mixin="true">
+			<description>Contains data on each order line quantity</description>
+			
+			<versionattribute name="version"/>
+			<attributes>
+				<attribute name="secondarySlaveId" type="String">
+					<description>Secondary line quantity location</description>
+				</attribute>
+		
+			</attributes>
+		</managedobject>
+		
+		
+		 <managedobject code="SellerSlavePriorityData" properties="true">
+			<description>Seller SlavePriority</description>
+			<persistence name="sellerslavepriority">
+				<index name="UQ_seller_slavepriority_idx" unique="true">
+					<attribute name="pincodeServiceID"/>
+					<attribute name="slave"/>
+				</index>
+			</persistence>
+			<versionattribute name="version"/>
+			<attributes>
+
+				<attribute name="pincodeServiceID" type="SellerPincodeServiceabilityData">
+					<description>seller service </description>
+				</attribute>
+			
+				<attribute name="slave" type="StockroomLocationData">
+					<description>slave</description>
+				</attribute>
+				
+				<attribute name="slaveID" type="String">
+					<description>slaveID</description>
+				</attribute>
+					
+				<attribute name="priority" type="int" >
+					<description>Priority </description>
+				</attribute>
+			</attributes>
+		</managedobject>
+		 
+		 <managedobject code="SellerPincodeServiceabilityData" properties="true">
+			<description>Seller serviceability</description>
+			<persistence name="sellerpincodeserviceability">
+				<index name="UQ_seller_services_idx" unique="true">
+					<attribute name="pincode"/>
+					<attribute name="sellerID"/>
+					<attribute name="fulfilmentType"/>
+					<attribute name="deliveryType"/>
+				</index>
+			</persistence>
+			<versionattribute name="version"/>
+			<attributes>
+
+				<attribute name="pincode" type="String">
+					<description>Order line quantity location</description>
+					<modifiers mandatory="true" indexed="true"  />
+				</attribute>
+				
+				<attribute name="sellerID" type="String">
+					<description>sellerID</description>
+					<modifiers mandatory="true" indexed="true"/>
+				</attribute>
+				
+				<attribute name="fulfilmentType" type="String">
+					<description>fulfillmentType</description>
+					<modifiers mandatory="true" indexed="true"/>
+				</attribute>
+				
+				<attribute name="deliveryType" type="String" >
+					<description>deliveryType </description>
+					<modifiers mandatory="true" indexed="true" tracked="true" />
+				</attribute>
+				
+				
+			</attributes>
+		</managedobject>
+		 
+	 <managedobject code="SellerFulfilmentProductTypeData" properties="true">
+			<description> Seller Fulfilment ProductType</description>
+			<persistence name="sellerfulfilmentproducttype">
+				<index name="UQ_seller_producttype_service_idx" unique="true">
+					<attribute name="productType"/>
+					<attribute name="sellerID"/>
+					<attribute name="transportMode"/>
+				</index>
+			</persistence>
+			<versionattribute name="version"/>
+			<attributes>
+		
+		        <attribute name="productType" type="String" >
+					<description>productType  Fragile, Large, Medium, Small</description>
+				</attribute>		
+					
+				
+				
+				<attribute name="sellerID" type="String">
+					<description>sellerID</description>
+				</attribute>
+							
+				<attribute name="transportMode" type="String" >
+					<description>transportMode  Seller type code ()reference from Global code Master" synch)</description>
+				</attribute>
+				
+				<attribute name="codFlag" type="String" >
+					<description>codFlag value Y/N </description>
+				</attribute>
+				
+				<attribute name="codLimit" type="double" >
+					<description>codLimit </description>
+				</attribute>
+				
+				<attribute name="prepaidLimit" type="double" >
+					<description>prepaid Limit </description>
+				</attribute>
+				
+				<attribute name="tatPrepaid" type="int" >
+					<description>Turn around time for Prepaid Payment </description>
+				</attribute>
+				
+				<attribute name="tatCOD" type="int" >
+					<description>Turn around time for Cash on DeliveryMode </description>
+				</attribute>
+				
+				<attribute name="returnFlag" type="String" >
+					<description>Is the required goods taken for this Pincode </description>
+				</attribute>
+				<attribute name="formRequired" type="String" >
+					<description>Declaration Form Required or not value Y/N </description>
+				</attribute>
+			</attributes>
+		</managedobject>
+		
+		<!-- Seller Fulfilment Pincode -->
+		 <managedobject code="SellerFulfilmentPincodeData" properties="true">
+			<description> Seller Fulfilment Pincode</description>
+			<persistence name="sellerfulfilmentpincode">
+				<index name="UQ_sellerfulfilment_pincode_idx" unique="true">
+					<attribute name="pincode"/>
+					<attribute name="sellerID"/>
+					<attribute name="transportMode"/>
+				</index>
+			</persistence>
+			<attributes>
+			<attribute name="sellerID" type="String">
+					<description>sellerID</description>
+				</attribute>
+					
+		       <attribute name="pincode" type="String">
+					<description>pincode</description>
+				</attribute>
+				
+				<attribute name="transportMode" type="String" >
+					<description>transportMode  Seller type code ()reference from Global code Master" synch)</description>
+				</attribute>
+				
+				<attribute name="codFlag" type="String" >
+					<description>codFlag value Y/N </description>
+				</attribute>
+				
+				<attribute name="codLimit" type="double" >
+					<description>codLimit </description>
+				</attribute>
+				
+				<attribute name="prepaidLimit" type="double" >
+					<description>prepaid Limit </description>
+				</attribute>
+				
+				<attribute name="tatPrepaid" type="int" >
+					<description>Turn around time for Prepaid Payment </description>
+				</attribute>
+				
+				<attribute name="tatCOD" type="int" >
+					<description>Turn around time for Cash on DeliveryMode </description>
+				</attribute>
+				
+				<attribute name="returnFlag" type="String" >
+					<description>Is the required goods taken for this Pincode </description>
+				</attribute>
+				<attribute name="formRequired" type="String" >
+					<description>Declaration Form Required or not value Y/N </description>
+				</attribute>
+			</attributes>
+			</managedobject>
+		 <!-- Logistics Models  -->
+		 
+		 <managedobject code="LogisticsData" properties="true">
+			<description>Contains logistics data</description>
+			<persistence name="logistics"/>
+			<versionattribute name="version"/>
+			<attributes>
+
+				
+				<attribute name="logisticsID" type="String">
+					<description>Order line quantity location</description>
+					<modifiers mandatory="true" indexed="true" tracked="true" />
+				</attribute>
+				
+				<attribute name="logisticsName" type="String">
+					<description>logistics Name</description>
+					<modifiers mandatory="false" indexed="true" tracked="true" />
+				</attribute>
+		
+				<attribute name="active"  type="boolean" >
+					<description>active </description>
+				</attribute>
+			</attributes>
+		</managedobject>
+		
+		
+		
+		<managedobject code="LogisticsServiceabilityData" properties="true">
+			<description>Contains logistics service for pincode</description>
+			<persistence name="logisticsserviceability">
+				<index name="UQ_logisticsServices_idx" unique="true">
+					<attribute name="pincode"/>
+					<attribute name="logistics"/>
+					<attribute name="transportMode"/>
+					<attribute name="priority"/>
+				</index>
+			</persistence>
+			<versionattribute name="version"/>
+			<attributes>
+
+				<attribute name="pincode" type="String">
+					<description>Order line quantity location</description>
+					<modifiers mandatory="true" indexed="true" tracked="true" />
+				</attribute>
+				
+				<attribute name="logisticsID" type="String">
+					<description>Order line quantity location</description>
+					<modifiers mandatory="true" indexed="true" tracked="true" />
+				</attribute>
+				
+				<attribute name="logistics" type="LogisticsData" >
+					<description>A handle to a shipment.</description>
+				</attribute>
+				
+				<attribute name="codFlag" type="boolean">
+					<description>Cash on delivery eligible</description>
+				
+				</attribute>
+		
+				<attribute name="codLimit" type="double" >
+					<description>codLimit</description>
+				</attribute>
+
+				<attribute name="prepaidLimit" type="double" >
+					<description>Prepaid Limit </description>
+				</attribute>
+				
+				<attribute name="transportMode" type="String" >
+					<description>Transport Mode </description>
+				</attribute>
+				
+				<attribute name="priority" type="int" >
+					<description>Priority </description>
+				</attribute>
+				
+				<attribute name="tatPrepaid" type="int" >
+					<description>Turn around time for Prepaid Payment </description>
+				</attribute>
+				
+				<attribute name="tatCOD" type="int" >
+					<description>Turn around time for Cash on DeliveryMode </description>
+				</attribute>
+				
+				<attribute name="returnFlag" type="boolean" >
+					<description>Is the required goods taken for this Pincode </description>
+				</attribute>
+				<attribute name="formRequired" type="boolean" >
+					<description>Declaration Form Required or not value Y/N </description>
+				</attribute>
+			</attributes>
+		</managedobject>
+		
+		 <!-- Notification Model  -->
+		 <managedobject code="NotificationsData" properties="true">
+			<description> SellerTransportModeServicability</description>
+			<persistence name="notifications">
+				<index name="UQ_notifications_idx" unique="true">
+					<attribute name="notificationID"/>
+				</index>
+			</persistence>
+			<versionattribute name="version"/>
+			<attributes>
+		
+				<attribute name="notificationID" type="String">
+					<description>Notification Id</description>
+				</attribute>
+		
+			<attribute name="orderLineID" type="String">
+					<description>OrderLine Id</description>
+				</attribute>
+			
+			<attribute name="description" type="String">
+					<description>Notification Id</description>
+				</attribute>
+		
+			<attribute name="notificationTime" type="Date">
+					<description>Notification Time</description>
+				</attribute>
+			</attributes>
+		</managedobject>
+
+        <managedobject code="PaymentInfoData" mixin="true">
+			<description>Contains payment information</description>
+			<versionattribute name="version"/>
+			<attributes>
+				<attribute name="paymentCost" type="double">
+					<description>Payment Cost</description>
+					<modifiers generated="true"  />
+				</attribute>
+				<attribute name="paymentStatus" type="String">
+					<description>Payment Status</description>
+					<modifiers   indexed="true"/>
+				</attribute>
+				<attribute name="paymentAddress" type="String">
+					<description>Payment Address</description>
+					<modifiers  />
+				</attribute>
+				<attribute name="paymentInfo" type="String">
+					<description>Payment Info</description>
+					<modifiers  />
+				</attribute>
+				<attribute name="paymentDate" type="Date">
+					<description>Payment Date</description>
+					<modifiers   indexed="true"/>
+				</attribute>
+				<attribute name="orderID" type="String">
+					<description>Order ID</description>
+				</attribute>
+			</attributes>
+				</managedobject>		
+	</managedobjects>
+</types>
